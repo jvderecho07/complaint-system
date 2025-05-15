@@ -1,12 +1,14 @@
-function togglePassword() {
-    const passwordField = document.getElementById('password');
-    const showPasswordBtn = document.querySelector('.show-password-btn');
+function togglePassword(inputId = 'password') {
+    const passwordField = document.getElementById(inputId);
+    const showPasswordBtn = document.querySelector(`[onclick="togglePassword('${inputId}')"] .show-password-text`);
+
+    if (!passwordField) return;
 
     if (passwordField.type === 'password') {
         passwordField.type = 'text';
-        showPasswordBtn.textContent = 'Hide Password';
+        if (showPasswordBtn) showPasswordBtn.textContent = 'Hide Password';
     } else {
         passwordField.type = 'password';
-        showPasswordBtn.textContent = 'Show Password';
+        if (showPasswordBtn) showPasswordBtn.textContent = 'Show Password';
     }
 }

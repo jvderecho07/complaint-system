@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_complaint'])) 
     <div class="card">
         <div class="card-header" style="padding:12px 15px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h2 style="margin:0; font-size:1.2rem;">Your Complaints</h2>
+                <h2 style="margin:0; ">Your Complaints</h2>
                 <a href="complaints.php?new=1" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> New Complaint</a>
             </div>
         </div>

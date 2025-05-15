@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <div class="container">
-    <div class="card" style="max-width:600px; margin:30px auto;">
+    <div class="card" style="@media max-width:600px; margin:30px auto;">
         <div class="card-header">
             <h2 style="margin:0;">Resident Registration</h2>
         </div>

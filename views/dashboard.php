@@ -43,11 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_complaint'])) 
                 <button type="submit" class="btn btn-primary">Logout</button>
             </form>
         </div>
-        <div>
-            <?php if (User::isAdmin()): ?>
-                <a href="admin.php" class="btn btn-sm"><i class="fas fa-cog"></i> Admin Panel</a>
-            <?php endif; ?>
-        </div>
     </div>
 
     <div class="card">

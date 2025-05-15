@@ -118,7 +118,7 @@ body::before {
     border-radius: 6px;
     font-size: 1rem;
     color: var(--text-dark);
-    background: rgba(255, 255, 255, 1); /* full white inside forms */
+    background: rgba(255, 255, 255, 0.699);
     transition: border-color 0.3s;
 }
 

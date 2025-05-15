@@ -35,7 +35,7 @@ $flash = get_flash_message();
         <div class="alert alert-<?= $flash['type'] ?>"><?= htmlspecialchars($flash['message']) ?></div>
     <?php endif; ?>
 
-    <div class="card" style="max-width:500px; margin:0 auto;">
+    <div class="card" style="max-width:500px; margin:200px auto;">
         <div class="card-header">
             <h2 style="text-align:center;">Brgy. 55 Estanza Complaint System</h2>
         </div>

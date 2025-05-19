@@ -62,6 +62,7 @@ $users = $user->getAllUsers();
                         <th>Phone</th>
                         <th>Category</th>
                         <th>Status</th>
+                        <th>Image</th>
                         <th>Last Updated</th>
                         <th>Actions</th>
                     </tr>
@@ -79,6 +80,15 @@ $users = $user->getAllUsers();
                                     <span class="status-badge status-<?= str_replace(' ', '-', $c['status']) ?>">
                                         <?= ucfirst($c['status']) ?>
                                     </span>
+                            </td>
+                            <td>
+                                <?php if (!empty($c['image_path'])): ?>
+                                    <a href="<?= htmlspecialchars($c['image_path']) ?>" target="_blank">
+                                        <img src="<?= htmlspecialchars($c['image_path']) ?>" alt="Complaint Image" class="complaint-image-preview">
+                                    </a>
+                                <?php else: ?>
+                                    No Image
+                                <?php endif; ?>
                             </td>
                             <td><?= date('M d, Y', strtotime($c['updated_at'])) ?></td>
                             <td style="white-space:nowrap;">

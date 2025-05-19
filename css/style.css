@@ -83,6 +83,8 @@ body::before {
     padding: 30px;
     margin: auto;
     transition: all 0.3s ease;
+    max-width: 1200px;
+    overflow-x: auto;
 }
 
 .card-header {
@@ -216,6 +218,7 @@ body::before {
    ====================== */
 table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
     background: rgba(255, 255, 255, 0.95);
@@ -226,14 +229,16 @@ table {
 th {
     background: #f0f0f0;
     text-align: left;
-    padding: 12px;
+    padding: 6px 8px;
     font-weight: 600;
+    font-size: 0.9rem;
     border-bottom: 2px solid #eee;
 }
 
 td {
-    padding: 12px;
+    padding: 6px 8px;
     border-bottom: 1px solid #eee;
+    font-size: 0.85rem;
 }
 
 tr:hover td {
@@ -304,6 +309,19 @@ tr:hover td {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+.complaint-image-preview {
+    width: 40px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.complaint-image-preview:hover {
+    transform: scale(1.2);
+}
+
 /* ======================
    RESPONSIVE DESIGN
    ====================== */
@@ -320,5 +338,6 @@ tr:hover td {
     table {
         display: block;
         overflow-x: auto;
+        font-size: 0.9rem;
     }
 }

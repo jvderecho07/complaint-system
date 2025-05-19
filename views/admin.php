@@ -58,6 +58,8 @@ $users = $user->getAllUsers();
                         <th>ID</th>
                         <th>Title</th>
                         <th>Submitted By</th>
+                        <th>Email</th>
+                        <th>Phone</th>
                         <th>Category</th>
                         <th>Status</th>
                         <th>Last Updated</th>
@@ -70,6 +72,8 @@ $users = $user->getAllUsers();
                             <td><?= $c['complaint_id'] ?></td>
                             <td><?= htmlspecialchars($c['title']) ?></td>
                             <td><?= htmlspecialchars($c['first_name'].' '.$c['last_name']) ?></td>
+                            <td><?= htmlspecialchars($c['email']) ?></td>
+                            <td><?= htmlspecialchars($c['phone']) ?></td>
                             <td><?= $c['category'] ?></td>
                             <td>
                                     <span class="status-badge status-<?= str_replace(' ', '-', $c['status']) ?>">

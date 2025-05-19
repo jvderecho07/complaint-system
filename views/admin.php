@@ -10,21 +10,39 @@ $complaint = new Complaint();
 $user = new User();
 
 // Handle status update
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     validate_csrf_token();
 
-    $complaint_id = filter_input(INPUT_POST, 'complaint_id', FILTER_VALIDATE_INT);
-    $new_status = $_POST['status'];
+    // Handle delete action
+    if (isset($_POST['delete_complaint'])) {
+        $complaint_id = filter_input(INPUT_POST, 'complaint_id', FILTER_VALIDATE_INT);
 
-    if ($complaint_id && in_array($new_status, ['pending', 'resolved'])) {
-        $complaint->updateStatus($complaint_id, $new_status);
-        set_flash_message('success', 'Complaint status updated successfully.');
-    } else {
-        set_flash_message('error', 'Invalid complaint ID or status.');
+        if ($complaint_id && $complaint->canEdit($complaint_id, $_SESSION['user_id'], $_SESSION['user_role'])) {
+            $complaint->delete($complaint_id);
+            set_flash_message('success', 'Complaint deleted successfully.');
+        } else {
+            set_flash_message('error', 'You do not have permission to delete this complaint.');
+        }
+
+        header("Location: admin.php");
+        exit();
     }
 
-    header("Location: admin.php");
-    exit();
+    // Handle status update
+    if (isset($_POST['update_status'])) {
+        $complaint_id = filter_input(INPUT_POST, 'complaint_id', FILTER_VALIDATE_INT);
+        $new_status = $_POST['status'];
+
+        if ($complaint_id && in_array($new_status, ['pending', 'resolved'])) {
+            $complaint->updateStatus($complaint_id, $new_status);
+            set_flash_message('success', 'Complaint status updated successfully.');
+        } else {
+            set_flash_message('error', 'Invalid complaint ID or status.');
+        }
+
+        header("Location: admin.php");
+        exit();
+    }
 }
 
 $complaints = $complaint->getAll();
@@ -47,6 +65,14 @@ $users = $user->getAllUsers();
         </div>
     </div>
 
+    <?php
+    $flash = get_flash_message();
+    if ($flash): ?>
+        <div class="alert alert-<?= $flash['type'] ?>">
+            <?= htmlspecialchars($flash['message']) ?>
+        </div>
+    <?php endif; ?>
+
     <div class="card">
         <div class="card-header">
             <h2>All Complaints</h2>
@@ -57,6 +83,7 @@ $users = $user->getAllUsers();
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
+                        <th>Description</th>
                         <th>Submitted By</th>
                         <th>Email</th>
                         <th>Phone</th>
@@ -72,14 +99,19 @@ $users = $user->getAllUsers();
                         <tr>
                             <td><?= $c['complaint_id'] ?></td>
                             <td><?= htmlspecialchars($c['title']) ?></td>
+                            <td class="description-cell" style="cursor:pointer; max-width: 200px;">
+                                <span class="short-desc"><?= htmlspecialchars(strlen($c['description']) > 30 ? substr($c['description'], 0, 30) . '...' : $c['description']) ?></span>
+                                <span class="full-desc" style="display:none;"><?= htmlspecialchars($c['description']) ?></span>
+                                  <span class="toggle-icon" style="color: var(--primary); font-size:0.85rem;"> [Show More]</span>
+                            </td>
                             <td><?= htmlspecialchars($c['first_name'].' '.$c['last_name']) ?></td>
                             <td><?= htmlspecialchars($c['email']) ?></td>
                             <td><?= htmlspecialchars($c['phone']) ?></td>
                             <td><?= $c['category'] ?></td>
                             <td>
-                                    <span class="status-badge status-<?= str_replace(' ', '-', $c['status']) ?>">
-                                        <?= ucfirst($c['status']) ?>
-                                    </span>
+                                <span class="status-badge status-<?= str_replace(' ', '-', $c['status']) ?>">
+                                    <?= ucfirst($c['status']) ?>
+                                </span>
                             </td>
                             <td>
                                 <?php if (!empty($c['image_path'])): ?>
@@ -106,7 +138,7 @@ $users = $user->getAllUsers();
                                 </form>
 
                                 <!-- Delete Button -->
-                                <form method="POST" action="complaints.php" style="display:inline;">
+                                <form method="POST" action="admin.php" style="display:inline;">
                                     <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                                     <input type="hidden" name="complaint_id" value="<?= $c['complaint_id'] ?>">
                                     <button type="submit" name="delete_complaint" class="btn-delete btn-sm"
@@ -139,18 +171,19 @@ $users = $user->getAllUsers();
                 </thead>
                 <tbody>
                     <?php foreach ($users as $u): ?>
-                    <tr>
-                        <td><?= $u['user_id'] ?></td>
-                        <td><?= htmlspecialchars($u['first_name'].' '.$u['last_name']) ?></td>
-                        <td><?= htmlspecialchars($u['email']) ?></td>
-                        <td><?= ucfirst($u['role']) ?></td>
-                        <td><?= date('M d, Y', strtotime($u['created_at'])) ?></td>
-                    </tr>
+                        <tr>
+                            <td><?= $u['user_id'] ?></td>
+                            <td><?= htmlspecialchars($u['first_name'].' '.$u['last_name']) ?></td>
+                            <td><?= htmlspecialchars($u['email']) ?></td>
+                            <td><?= ucfirst($u['role']) ?></td>
+                            <td><?= date('M d, Y', strtotime($u['created_at'])) ?></td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<script src="script.js"></script>
 </body>
 </html>

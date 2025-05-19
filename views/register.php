@@ -97,13 +97,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-group">
                     <label>Password * (min 6 characters)</label>
                     <input type="password" name="password" id="password" class="form-control" minlength="6" required>
-                    <span class="show-password-btn" onclick="togglePassword()">Show Password</span>
+                    <span class="show-password-btn" onclick="togglePassword('password')">Show Password</span>
                 </div>
 
                 <div class="form-group">
                     <label>Confirm Password *</label>
                     <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
-                    <span class="show-password-btn" onclick="togglePassword()">Show Password</span>
+                    <span class="show-password-btn" onclick="togglePassword('confirm_password')">Show Password</span>
                 </div>
 
                 <div class="form-actions">

@@ -245,6 +245,14 @@ tr:hover td {
     background: #f9f9f9;
 }
 
+.short-desc {
+    display: inline;
+}
+
+.full-desc {
+    display: none;
+}
+
 /* ======================
    STATUS BADGES
    ====================== */

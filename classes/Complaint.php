@@ -28,7 +28,11 @@ class Complaint {
 
     public function getAll($user_id = null) {
         if (User::isAdmin() && $user_id === null) {
-            $query = "SELECT c.*, u.first_name, u.last_name, u.email, u.phone  FROM complaints c JOIN users u ON c.user_id = u.user_id WHERE c.is_deleted = 0 ORDER BY c.updated_at DESC";
+            $query = "SELECT c.*, u.first_name, u.last_name, u.email, u.phone 
+                      FROM complaints c 
+                      JOIN users u ON c.user_id = u.user_id 
+                      WHERE c.is_deleted = 0 
+                      ORDER BY c.updated_at DESC";
             return $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
         } else {
             $user_id = $user_id ?? $_SESSION['user_id'];

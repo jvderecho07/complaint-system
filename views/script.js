@@ -14,26 +14,26 @@ function togglePassword(inputId = 'password') {
     }
 }
 
-// Expand/Collapse Description Toggle
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.description-cell').forEach(cell => {
         const shortDesc = cell.querySelector('.short-desc');
         const fullDesc = cell.querySelector('.full-desc');
         const toggleIcon = cell.querySelector('.toggle-icon');
 
-        // Skip if any element is missing
         if (!shortDesc || !fullDesc || !toggleIcon) return;
+
+        // Ensure correct initial state from CSS
+        shortDesc.style.display = 'inline';
+        fullDesc.style.display = 'none';
 
         cell.addEventListener('click', function () {
             if (shortDesc.style.display === 'none') {
-                // Show short, hide full
-                shortDesc.style.display = '';
+                shortDesc.style.display = 'inline';
                 fullDesc.style.display = 'none';
                 toggleIcon.textContent = ' [Show More]';
             } else {
-                // Hide short, show full
                 shortDesc.style.display = 'none';
-                fullDesc.style.display = '';
+                fullDesc.style.display = 'inline';
                 toggleIcon.textContent = ' [Show Less]';
             }
         });

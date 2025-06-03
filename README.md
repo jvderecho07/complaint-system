@@ -14,5 +14,5 @@ A simple PHP-based complaint management system with login, admin panel, and secu
 4. Access via http://localhost/complaint-system/views/index.php
 
 Default Admin:
-Email: admin@gmail,com
+Email: admin@gmail.com
 Password: Admin123 
